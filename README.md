@@ -1,18 +1,47 @@
-[![Top Langs](https://github-readme-stats-git-masterrstaa-rickstaa.vercel.app/api/top-langs/?username=QuBenhao&theme=tokyonight&layout=compact)](https://github.com/anuraghazra/github-readme-stats)
+<div align="center">
 
-[![Benhao's github stats](https://github-readme-stats-git-masterrstaa-rickstaa.vercel.app/api?username=QuBenhao&show_icons=true&theme=tokyonight)](https://github.com/anuraghazra/github-readme-stats)
+# Hi there, I'm Benhao 👋
 
-<!--
-**QuBenhao/QuBenhao** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
+**C++ Backend Developer | Algorithm Enthusiast | AI Explorer**
 
-Here are some ideas to get you started:
+</div>
 
-- 🔭 I’m currently working on ...
-- 🌱 I’m currently learning ...
-- 👯 I’m looking to collaborate on ...
-- 🤔 I’m looking for help with ...
-- 💬 Ask me about ...
-- 📫 How to reach me: ...
-- 😄 Pronouns: ...
-- ⚡ Fun fact: ...
--->
+---
+
+### 🛠️ Tech Stack
+
+![C++](https://img.shields.io/badge/C++-00599C?style=flat-square&logo=c%2B%2B&logoColor=white)
+![Python](https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white)
+![Go](https://img.shields.io/badge/Go-00ADD8?style=flat-square&logo=go&logoColor=white)
+![Java](https://img.shields.io/badge/Java-ED8B00?style=flat-square&logo=openjdk&logoColor=white)
+
+---
+
+### 🎯 What I Do
+
+- 🔧 **Backend Development** — Building high-performance distributed systems with C++
+- 🧮 **Algorithm & Math** — Solving complex problems, exploring elegant solutions
+- 🤖 **AI & LLM** — Integrating AI assistants, building intelligent workflows
+
+---
+
+### 📊 GitHub Stats
+
+<img src="https://github-readme-stats.vercel.app/api?username=QuBenhao&show_icons=true&theme=tokyonight&hide_border=true" alt="GitHub Stats" />
+
+<img src="https://github-readme-stats.vercel.app/api/top-langs/?username=QuBenhao&theme=tokyonight&layout=compact&hide_border=true" alt="Top Languages" />
+
+---
+
+### 📫 Let's Connect
+
+- 💬 Feel free to open an issue or discussion in any of my repos
+- 🌏 Based in Guangzhou, China
+
+---
+
+<div align="center">
+
+*"The best code is the code that solves the problem elegantly."*
+
+</div>
