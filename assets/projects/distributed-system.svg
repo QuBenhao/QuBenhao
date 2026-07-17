@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="520" height="190" viewBox="0 0 520 190" role="img" aria-labelledby="title desc">
+  <title id="title">distributed-system</title>
+  <desc id="desc">Raft consensus, fault-tolerant key-value services, and sharded storage.</desc>
+  <defs>
+    <linearGradient id="background" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#05090e"/>
+      <stop offset="1" stop-color="#07151d"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="92%" cy="4%" r="75%">
+      <stop offset="0" stop-color="#57dfff" stop-opacity="0.14"/>
+      <stop offset="1" stop-color="#57dfff" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse">
+      <path d="M32 0H0V32" fill="none" stroke="#57dfff" stroke-opacity="0.07"/>
+    </pattern>
+  </defs>
+  <rect width="520" height="190" rx="12" fill="url(#background)"/>
+  <rect width="520" height="190" rx="12" fill="url(#glow)"/>
+  <rect width="520" height="190" rx="12" fill="url(#grid)"/>
+  <rect x="1" y="1" width="518" height="188" rx="11" fill="none" stroke="#1b5364" stroke-width="2"/>
+  <g font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace">
+    <text x="28" y="32" fill="#7796a3" font-size="10" font-weight="700" letter-spacing="2">PROJECT · 02</text>
+    <text x="28" y="76" fill="#57dfff" font-size="22" font-weight="800">distributed-system ↗</text>
+    <text x="28" y="112" fill="#b9d6de" font-size="14">Raft consensus, fault-tolerant key-value services,</text>
+    <text x="28" y="135" fill="#b9d6de" font-size="14">and sharded storage.</text>
+    <text x="28" y="166" fill="#7796a3" font-size="11" font-weight="700" letter-spacing="1.2">GO · RAFT · DISTRIBUTED SYSTEMS</text>
+  </g>
+</svg>
