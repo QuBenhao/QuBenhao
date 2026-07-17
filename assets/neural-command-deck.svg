@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="300" viewBox="0 0 1200 300" role="img" aria-labelledby="title desc">
   <title id="title">Benhao Qu — Building Intelligent Systems</title>
-  <desc id="desc">Backend engineer working with Go, C++, Python, Java, Kotlin, and TypeScript on distributed systems and AI tooling.</desc>
+  <desc id="desc">Systems engineer focused on backend runtime, distributed systems, AI tooling, and developer productivity.</desc>
 
   <defs>
     <linearGradient id="background" x1="0" y1="0" x2="1" y2="1">
@@ -62,13 +62,13 @@
   </g>
 
   <g font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace">
-    <text x="66" y="70" fill="#68e8ff" font-size="16" font-weight="700" letter-spacing="4">BENHAO // SYSTEMS ENGINEER</text>
+    <text x="66" y="70" fill="#68e8ff" font-size="16" font-weight="700" letter-spacing="4">BENHAO · SYSTEMS ENGINEER</text>
     <circle class="pulse" cx="908" cy="65" r="4" fill="#6cf2a8"/>
     <text x="920" y="70" fill="#6cf2a8" font-size="10" letter-spacing="1">OPEN TO COLLABORATE</text>
     <text x="66" y="164" fill="#f0fbff" font-size="36" font-weight="800" letter-spacing="-1.5">
       <tspan>BUILDING </tspan><tspan fill="#57dfff" filter="url(#cyan-glow)">INTELLIGENT</tspan><tspan> SYSTEMS.</tspan>
     </text>
-    <text x="66" y="218" fill="#9bb1bb" font-size="10.5" letter-spacing="0.5">GO · C++ · PYTHON · JAVA · KOTLIN · TYPESCRIPT // BACKEND · DISTRIBUTED SYSTEMS · AI TOOLING</text>
-    <text x="66" y="260" fill="#7796a3" font-size="12" letter-spacing="2">GUANGZHOU, CN // UTC+08:00</text>
+    <text x="66" y="218" fill="#9bb1bb" font-size="10.5" letter-spacing="0.5">BACKEND · DISTRIBUTED SYSTEMS · AI TOOLING · DEVELOPER PRODUCTIVITY</text>
+    <text x="66" y="260" fill="#7796a3" font-size="12" letter-spacing="2">GUANGZHOU, CN · UTC+08:00</text>
   </g>
 </svg>
