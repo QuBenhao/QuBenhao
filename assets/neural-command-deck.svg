@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="300" viewBox="0 0 1200 300" role="img" aria-labelledby="title desc">
+  <title id="title">Benhao Qu — Building Intelligent Systems</title>
+  <desc id="desc">Backend engineer working with Go, C++, Python, Java, Kotlin, and TypeScript on distributed systems and AI tooling.</desc>
+
+  <defs>
+    <linearGradient id="background" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#05090e"/>
+      <stop offset="0.58" stop-color="#07151d"/>
+      <stop offset="1" stop-color="#061016"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="86%" cy="24%" r="38%">
+      <stop offset="0" stop-color="#20dcff" stop-opacity="0.24"/>
+      <stop offset="1" stop-color="#20dcff" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="grid" width="34" height="34" patternUnits="userSpaceOnUse">
+      <path d="M34 0H0V34" fill="none" stroke="#4bdcf5" stroke-opacity="0.13"/>
+    </pattern>
+    <linearGradient id="scan-gradient" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#5ee4ff" stop-opacity="0"/>
+      <stop offset="0.5" stop-color="#5ee4ff" stop-opacity="0.18"/>
+      <stop offset="1" stop-color="#5ee4ff" stop-opacity="0"/>
+    </linearGradient>
+    <filter id="cyan-glow" x="-20%" y="-30%" width="140%" height="160%">
+      <feGaussianBlur stdDeviation="7" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <style>
+      .scan { animation: scan 6s linear infinite; }
+      .pulse { animation: pulse 2.4s ease-in-out infinite; }
+      @keyframes scan {
+        from { transform: translateX(0); }
+        to { transform: translateX(1820px); }
+      }
+      @keyframes pulse {
+        0%, 100% { opacity: .55; }
+        50% { opacity: 1; }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .scan, .pulse { animation: none; }
+      }
+    </style>
+  </defs>
+
+  <rect width="1200" height="300" rx="18" fill="url(#background)"/>
+  <rect width="1200" height="300" rx="18" fill="url(#glow)"/>
+  <rect width="1200" height="300" rx="18" fill="url(#grid)"/>
+  <rect class="scan" x="-310" width="310" height="300" fill="url(#scan-gradient)"/>
+  <rect x="1" y="1" width="1198" height="298" rx="17" fill="none" stroke="#1b5364" stroke-width="2"/>
+
+  <g fill="none" stroke="#57dfff" stroke-opacity="0.28">
+    <path d="M930 42h92l26 26h96"/>
+    <path d="M978 104h88l24-24h54"/>
+    <path d="M1008 242h72l20-20h44"/>
+    <circle cx="930" cy="42" r="4" fill="#57dfff"/>
+    <circle cx="978" cy="104" r="4" fill="#57dfff"/>
+    <circle cx="1008" cy="242" r="4" fill="#57dfff"/>
+    <circle cx="1144" cy="68" r="4" fill="#57dfff"/>
+    <circle cx="1144" cy="222" r="4" fill="#57dfff"/>
+  </g>
+
+  <g font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace">
+    <text x="66" y="70" fill="#68e8ff" font-size="16" font-weight="700" letter-spacing="4">BENHAO // SYSTEMS ENGINEER</text>
+    <text x="850" y="70" fill="#6cf2a8" font-size="10" letter-spacing="1">
+      <tspan class="pulse">●</tspan>
+      <tspan> OPEN TO INTERESTING COLLABORATIONS</tspan>
+    </text>
+    <text x="66" y="164" fill="#f0fbff" font-size="36" font-weight="800" letter-spacing="-1.5">
+      <tspan>BUILDING </tspan><tspan fill="#57dfff" filter="url(#cyan-glow)">INTELLIGENT</tspan><tspan> SYSTEMS.</tspan>
+    </text>
+    <text x="66" y="218" fill="#9bb1bb" font-size="10.5" letter-spacing="0.5">GO · C++ · PYTHON · JAVA · KOTLIN · TYPESCRIPT // BACKEND · DISTRIBUTED SYSTEMS · AI TOOLING</text>
+    <text x="66" y="260" fill="#54717d" font-size="12" letter-spacing="2">GUANGZHOU, CN // UTC+08:00</text>
+  </g>
+</svg>
