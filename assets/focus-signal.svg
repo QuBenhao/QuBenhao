@@ -56,6 +56,6 @@
     <text class="line-1" x="55" y="49" fill="#b9d6de">designing distributed systems that stay understandable<tspan class="cursor" fill="#6cf2a8">_</tspan></text>
     <text class="line-2" x="55" y="49" fill="#b9d6de" opacity="0">building AI tools for real developer workflows<tspan class="cursor" fill="#6cf2a8">_</tspan></text>
     <text class="line-3" x="55" y="49" fill="#b9d6de" opacity="0">turning difficult problems into reliable systems<tspan class="cursor" fill="#6cf2a8">_</tspan></text>
-    <text x="1168" y="49" fill="#5b7782" font-size="12" text-anchor="end" letter-spacing="2">FOCUS // LIVE</text>
+    <text x="1168" y="49" fill="#7796a3" font-size="12" text-anchor="end" letter-spacing="2">FOCUS // LIVE</text>
   </g>
 </svg>
