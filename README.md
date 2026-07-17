@@ -17,8 +17,8 @@
 </div>
 
 <p align="center">
-  <a href="https://github.com/QuBenhao"><img src="https://github-stats-extended.vercel.app/api?username=QuBenhao&amp;show_icons=true&amp;include_all_commits=true&amp;bg_color=07151d&amp;title_color=57dfff&amp;text_color=b9d6de&amp;icon_color=6cf2a8&amp;ring_color=57dfff&amp;border_color=1b5364&amp;border_radius=10&amp;custom_title=Activity%20Summary" alt="GitHub activity summary with rank, stars, commits, pull requests, issues, and contributions" height="185" /></a>
-  <a href="https://github.com/QuBenhao?tab=repositories"><img src="https://github-stats-extended.vercel.app/api/top-langs/?username=QuBenhao&amp;layout=compact&amp;langs_count=8&amp;size_weight=0.5&amp;count_weight=0.5&amp;card_width=430&amp;bg_color=07151d&amp;title_color=57dfff&amp;text_color=b9d6de&amp;border_color=1b5364&amp;border_radius=10&amp;custom_title=Language%20Distribution" alt="Language distribution across public repositories" height="185" /></a>
+  <a href="https://github.com/QuBenhao"><img src="https://github-stats-extended.vercel.app/api?username=QuBenhao&amp;show_icons=true&amp;include_all_commits=true&amp;bg_color=07151d&amp;title_color=57dfff&amp;text_color=b9d6de&amp;icon_color=6cf2a8&amp;ring_color=57dfff&amp;border_color=1b5364&amp;border_radius=10&amp;custom_title=Activity%20Summary" alt="GitHub activity summary with rank, stars, commits, pull requests, issues, and contributions" height="183" /></a>
+  <a href="https://github.com/QuBenhao?tab=repositories"><img src="https://github-stats-extended.vercel.app/api/top-langs/?username=QuBenhao&amp;layout=compact&amp;langs_count=8&amp;size_weight=0.5&amp;count_weight=0.5&amp;card_width=430&amp;bg_color=07151d&amp;title_color=57dfff&amp;text_color=b9d6de&amp;border_color=1b5364&amp;border_radius=10&amp;custom_title=Language%20Distribution" alt="Language distribution across public repositories" height="183" /></a>
 </p>
 
 <br>

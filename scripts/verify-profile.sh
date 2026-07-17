@@ -86,6 +86,9 @@ verify_readme() {
   local metric_count
   metric_count="$(rg -o 'github-stats-extended\.vercel\.app' README.md | wc -l | tr -d ' ')"
   test "$metric_count" -eq 2
+  local metric_height_count
+  metric_height_count="$(rg -o 'height="183"' README.md | wc -l | tr -d ' ')"
+  test "$metric_height_count" -eq 2
   rg -q 'include_all_commits=true' README.md
   rg -q 'layout=compact' README.md
 
