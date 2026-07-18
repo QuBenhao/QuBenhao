@@ -13,6 +13,7 @@ const document = `<!doctype html>
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <base href="../">
   <title>QuBenhao GitHub Profile Preview</title>
   <style>
     :root { color-scheme: light dark; }

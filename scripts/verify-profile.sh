@@ -58,6 +58,8 @@ verify_assets() {
 }
 
 verify_readme() {
+  rg -q '<base href="../">' scripts/render-profile-preview.mjs
+
   local asset_refs=(
     assets/profile-overview.svg
     assets/section-github-signal.svg
