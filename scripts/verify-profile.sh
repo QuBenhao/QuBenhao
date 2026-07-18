@@ -59,9 +59,7 @@ verify_assets() {
 
 verify_readme() {
   local asset_refs=(
-    assets/neural-command-deck.svg
-    assets/focus-signal.svg
-    assets/identity-signal.svg
+    assets/profile-overview.svg
     assets/section-github-signal.svg
     assets/section-selected-work.svg
     assets/section-capability-map.svg
@@ -93,14 +91,31 @@ verify_readme() {
     rg -q "$link" README.md
   done
 
-  local metric_count
-  metric_count="$(rg -o 'github-stats-extended\.vercel\.app' README.md | wc -l | tr -d ' ')"
-  test "$metric_count" -eq 2
-  local metric_height_count
-  metric_height_count="$(rg -o 'height="183"' README.md | wc -l | tr -d ' ')"
-  test "$metric_height_count" -eq 2
+  test "$(rg -o 'github-stats-extended\.vercel\.app' README.md | wc -l | tr -d ' ')" -eq 2
+  test "$(rg -o 'width="390"' README.md | wc -l | tr -d ' ')" -eq 12
+  test "$(rg -o '</a><a ' README.md | wc -l | tr -d ' ')" -eq 4
+  test "$(rg -o '/><img ' README.md | wc -l | tr -d ' ')" -eq 2
+
   rg -q 'include_all_commits=true' README.md
   rg -q 'layout=compact' README.md
+  rg -q 'card_width=455' README.md
+
+  if rg -n 'height="[0-9]+"|assets/neural-command-deck\.svg|assets/focus-signal\.svg|assets/identity-signal\.svg|^[[:space:]]*<br>[[:space:]]*$' README.md; then
+    echo "README contains fixed heights, retired top assets, or a standalone break" >&2
+    exit 1
+  fi
+
+  local desktop_width=800
+  local card_width=390
+  local mobile_content_width=343
+  if (( card_width * 2 > desktop_width )); then
+    echo "paired cards exceed the desktop contract" >&2
+    exit 1
+  fi
+  if (( card_width <= mobile_content_width )); then
+    echo "paired cards will not wrap at the mobile contract" >&2
+    exit 1
+  fi
 
   if rg -n 'github-readme-stats\.vercel\.app|01 / SYSTEM ID|02 / SELECTED SYSTEMS|03 / SYSTEM MATRIX|CORE //|STATE //|EDGE //|INTEL //|GO · C\+\+ · PYTHON' README.md; then
     echo "README contains a retired service, heading, or global language list" >&2
