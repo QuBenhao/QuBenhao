@@ -121,6 +121,82 @@ ${body}
 </svg>`;
 }
 
+function profileOverviewSvg() {
+  const cells = [
+    ['STATUS', '● ACTIVE', colors.green],
+    ['BASE', 'GUANGZHOU, CN', colors.text],
+    ['EXPERIENCE', '2014 — PRESENT', colors.text],
+    ['LOCAL TIME', 'UTC+08:00', colors.text],
+  ];
+  const identity = cells.map(([label, value, color], index) => {
+    const x = index * 300;
+    const divider = index === 0 ? '' : `    <path d="M${x} 358V426" stroke="${colors.border}"/>\n`;
+    return `${divider}    <text x="${x + 32}" y="379" fill="${colors.muted}" font-size="10" font-weight="700" letter-spacing="2">${label}</text>
+    <text x="${x + 32}" y="414" fill="${color}" font-size="17" font-weight="700">${value}</text>`;
+  }).join('\n');
+
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="440" viewBox="0 0 1200 440" role="img" aria-labelledby="title desc">
+  <title id="title">Benhao Qu — systems engineer building intelligent systems</title>
+  <desc id="desc">Systems engineer in Guangzhou focused on backend runtime, distributed systems, AI tooling, and developer productivity. Active since 2014 in UTC plus eight.</desc>
+  <defs>
+    <linearGradient id="overview-background" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="${colors.background}"/>
+      <stop offset="1" stop-color="${colors.panel}"/>
+    </linearGradient>
+    <radialGradient id="overview-glow" cx="90%" cy="12%" r="54%">
+      <stop offset="0" stop-color="${colors.cyan}" stop-opacity="0.22"/>
+      <stop offset="1" stop-color="${colors.cyan}" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="overview-grid" width="32" height="32" patternUnits="userSpaceOnUse">
+      <path d="M32 0H0V32" fill="none" stroke="${colors.cyan}" stroke-opacity="0.07"/>
+    </pattern>
+    <filter id="overview-cyan-glow" x="-30%" y="-60%" width="160%" height="220%">
+      <feGaussianBlur stdDeviation="5" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <style>
+      .focus-1 { animation: focus-one 12s infinite; }
+      .focus-2 { opacity: 0; animation: focus-two 12s infinite; }
+      .focus-3 { opacity: 0; animation: focus-three 12s infinite; }
+      .cursor { animation: cursor-blink 1s steps(2, end) infinite; }
+      @keyframes focus-one { 0%, 28%, 100% { opacity: 1; } 33%, 94% { opacity: 0; } }
+      @keyframes focus-two { 0%, 28%, 66%, 100% { opacity: 0; } 33%, 61% { opacity: 1; } }
+      @keyframes focus-three { 0%, 61%, 100% { opacity: 0; } 66%, 94% { opacity: 1; } }
+      @keyframes cursor-blink { 50% { opacity: 0; } }
+      @media (prefers-reduced-motion: reduce) {
+        .focus-1 { animation: none; opacity: 1; }
+        .focus-2, .focus-3, .cursor { animation: none; opacity: 0; }
+      }
+    </style>
+  </defs>
+  <rect width="1200" height="440" rx="14" fill="url(#overview-background)"/>
+  <rect width="1200" height="440" rx="14" fill="url(#overview-glow)"/>
+  <rect width="1200" height="440" rx="14" fill="url(#overview-grid)"/>
+  <rect x="1" y="1" width="1198" height="438" rx="13" fill="none" stroke="${colors.border}" stroke-width="2"/>
+  <path d="M1 276H1199M1 342H1199" stroke="${colors.border}"/>
+  <g font-family="${font}">
+    <text x="52" y="55" fill="${colors.cyan}" font-size="14" font-weight="700" letter-spacing="4">BENHAO · SYSTEMS ENGINEER</text>
+    <circle cx="930" cy="50" r="4" fill="${colors.green}"/>
+    <text x="943" y="55" fill="${colors.green}" font-size="10" letter-spacing="1">OPEN TO COLLABORATE</text>
+    <text x="52" y="145" fill="${colors.text}" font-size="36" font-weight="800" letter-spacing="-1.5">
+      <tspan>BUILDING </tspan><tspan fill="${colors.cyan}" filter="url(#overview-cyan-glow)">INTELLIGENT</tspan><tspan> SYSTEMS.</tspan>
+    </text>
+    <text x="52" y="199" fill="${colors.body}" font-size="11" letter-spacing="0.6">BACKEND · DISTRIBUTED SYSTEMS · AI TOOLING · DEVELOPER PRODUCTIVITY</text>
+    <text x="52" y="244" fill="${colors.muted}" font-size="12" letter-spacing="2">GUANGZHOU, CN · UTC+08:00</text>
+    <g fill="none" stroke="${colors.cyan}" stroke-opacity="0.34">
+      <path d="M920 92H1030L1060 122H1140"/><path d="M965 160H1080L1110 132H1150"/><path d="M995 224H1085L1118 196H1150"/>
+    </g>
+    <g fill="${colors.cyan}"><circle cx="920" cy="92" r="4"/><circle cx="1140" cy="122" r="4"/><circle cx="965" cy="160" r="4"/><circle cx="1150" cy="132" r="4"/><circle cx="995" cy="224" r="4"/><circle cx="1150" cy="196" r="4"/></g>
+    <text x="52" y="318" fill="${colors.green}" font-size="18" font-weight="700">&gt;</text>
+    <text class="focus-1" x="78" y="318" fill="${colors.body}" font-size="16">designing distributed systems that stay understandable<tspan class="cursor" fill="${colors.green}">_</tspan></text>
+    <text class="focus-2" x="78" y="318" fill="${colors.body}" font-size="16">building AI tools for real developer workflows<tspan class="cursor" fill="${colors.green}">_</tspan></text>
+    <text class="focus-3" x="78" y="318" fill="${colors.body}" font-size="16">turning difficult problems into reliable systems<tspan class="cursor" fill="${colors.green}">_</tspan></text>
+    <text x="1148" y="318" fill="${colors.muted}" font-size="11" text-anchor="end" letter-spacing="2">FOCUS · LIVE</text>
+${identity}
+  </g>
+</svg>`;
+}
+
 function identitySvg() {
   const cells = [
     ['STATUS', '● ACTIVE', colors.green],
@@ -147,14 +223,14 @@ function identitySvg() {
 function sectionSvg(kicker, title, meta) {
   return svgFrame({
     width: 1200,
-    height: 120,
+    height: 84,
     title,
     description: `${kicker}: ${title}. ${meta}.`,
-    body: `    <text x="42" y="40" fill="${colors.cyan}" font-size="12" font-weight="700" letter-spacing="3">${kicker}</text>
-    <text x="42" y="82" fill="${colors.text}" font-size="28" font-weight="800">${escapeXml(title)}</text>
-    <text x="1158" y="75" fill="${colors.muted}" font-size="12" text-anchor="end" letter-spacing="2">${meta}</text>
-    <path d="M42 98H1158" stroke="${colors.cyan}" stroke-opacity="0.3"/>`,
-    radius: 12,
+    body: `    <text x="32" y="27" fill="${colors.cyan}" font-size="10" font-weight="700" letter-spacing="3">${kicker}</text>
+    <text x="32" y="60" fill="${colors.text}" font-size="24" font-weight="800">${escapeXml(title)}</text>
+    <text x="1168" y="57" fill="${colors.muted}" font-size="10" text-anchor="end" letter-spacing="2">${meta}</text>
+    <path d="M32 72H1168" stroke="${colors.cyan}" stroke-opacity="0.3"/>`,
+    radius: 10,
   });
 }
 
@@ -192,6 +268,7 @@ function footerSvg() {
 }
 
 const outputs = new Map([
+  ['assets/profile-overview.svg', profileOverviewSvg()],
   ['assets/identity-signal.svg', identitySvg()],
   ...sections.map(([file, kicker, title, meta]) => [file, sectionSvg(kicker, title, meta)]),
   ...projects.map((project, index) => [project.file, cardSvg(project, index, 'project')]),

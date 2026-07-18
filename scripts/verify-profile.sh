@@ -8,6 +8,7 @@ assets=(
   assets/neural-command-deck.svg
   assets/focus-signal.svg
   assets/identity-signal.svg
+  assets/profile-overview.svg
   assets/section-github-signal.svg
   assets/section-selected-work.svg
   assets/section-capability-map.svg
@@ -37,9 +38,18 @@ verify_assets() {
     exit 1
   fi
 
-  rg -q '2014 — PRESENT' assets/identity-signal.svg
+  rg -q 'BUILDING' assets/profile-overview.svg
+  rg -q 'FOCUS · LIVE' assets/profile-overview.svg
+  rg -q '2014 — PRESENT' assets/profile-overview.svg
   rg -q 'Systems built for hard problems' assets/section-selected-work.svg
   rg -q 'Backend runtime' assets/capabilities/backend-runtime.svg
+
+  for section in \
+    assets/section-github-signal.svg \
+    assets/section-selected-work.svg \
+    assets/section-capability-map.svg; do
+    rg -q 'height="84"' "$section"
+  done
 
   if rg -n 'SYSTEM ID|SELECTED SYSTEMS|SYSTEM MATRIX|CORE //|STATE //|EDGE //|INTEL //' "${assets[@]}"; then
     echo "SVG assets contain a retired heading" >&2
