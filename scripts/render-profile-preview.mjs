@@ -18,7 +18,7 @@ const document = `<!doctype html>
   <style>
     :root { color-scheme: light dark; }
     body { margin: 0; background: Canvas; color: CanvasText; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
-    .markdown-body { box-sizing: border-box; width: min(832px, 100%); margin: 0 auto; padding: 24px 16px; }
+    .markdown-body { box-sizing: border-box; width: min(798px, 100%); margin: 0 auto; padding: 24px 16px; }
     img { max-width: 100%; box-sizing: content-box; }
     p { margin: 0 0 16px; }
   </style>

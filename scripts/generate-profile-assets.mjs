@@ -58,10 +58,10 @@ const projects = [
     tags: 'GO · SDK · NOTIFICATIONS',
   },
   {
-    file: 'assets/projects/triage.svg',
-    title: 'triage',
-    lines: ['Privacy-first LLM gateway for routing, redaction,', 'and spend control across local and remote models.'],
-    tags: 'GO · LLM GATEWAY · PRIVACY',
+    file: 'assets/projects/profile-command-deck.svg',
+    title: 'profile-command-deck',
+    lines: ['Generated SVG command deck with deterministic checks', 'and responsive GitHub profile previews.'],
+    tags: 'NODE.JS · SVG · GITHUB PROFILE',
   },
 ];
 
