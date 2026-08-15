@@ -7,6 +7,8 @@ import { fileURLToPath } from 'node:url';
 
 import {
   assertValidPortfolio,
+  diffRepositorySnapshots,
+  fetchGitHubSnapshot,
   renderProjectsMarkdown,
   renderReadmeProjectBlock,
 } from '../lib/portfolio-index.mjs';
@@ -64,6 +66,41 @@ test('rejects a project asset symlink that escapes the repository', async () => 
   } finally {
     await rm(sandbox, { recursive: true, force: true });
   }
+});
+
+test('ignores only self-triggered profile timestamps during live comparison', () => {
+  const live = structuredClone(valid.snapshot);
+  live.repositories[0].updatedAt = '2026-08-15T01:00:00Z';
+  live.repositories[0].pushedAt = '2026-08-15T01:00:00Z';
+  assert.deepEqual(diffRepositorySnapshots(valid.manifest, valid.snapshot, live), []);
+
+  live.repositories[0].description = 'Changed description';
+  assert.deepEqual(
+    diffRepositorySnapshots(valid.manifest, valid.snapshot, live),
+    ['QuBenhao/example.description differs from the live source'],
+  );
+});
+
+test('loads selected metadata from one owner repository listing', async () => {
+  const apiResponse = await fixture('github-list-response.json');
+  const requests = [];
+  const snapshot = await fetchGitHubSnapshot(valid.manifest, {
+    retrievedAt: valid.snapshot.source.retrievedAt,
+    fetchImpl: async (url) => {
+      requests.push(url);
+      return {
+        ok: true,
+        status: 200,
+        headers: { get: () => null },
+        json: async () => apiResponse,
+      };
+    },
+  });
+
+  assert.deepEqual(requests, [
+    'https://api.github.com/users/QuBenhao/repos?type=owner&sort=full_name&direction=asc&per_page=100',
+  ]);
+  assert.deepEqual(snapshot, valid.snapshot);
 });
 
 for (const [name, label] of [

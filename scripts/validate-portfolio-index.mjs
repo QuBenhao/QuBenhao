@@ -44,7 +44,7 @@ assertPublicContent(readme, 'README.md');
 if (online) {
   const liveSnapshot = await fetchGitHubSnapshot(manifest);
   await assertValidPortfolio({ manifest, snapshot: liveSnapshot, repoRoot, checkFiles: true });
-  const differences = diffRepositorySnapshots(snapshot, liveSnapshot);
+  const differences = diffRepositorySnapshots(manifest, snapshot, liveSnapshot);
   if (differences.length > 0) {
     throw new Error(`portfolio snapshot differs from public GitHub metadata:\n${differences.map((difference) => `- ${difference}`).join('\n')}\nrun node scripts/update-portfolio-index.mjs`);
   }

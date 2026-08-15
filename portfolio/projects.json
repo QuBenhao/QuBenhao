@@ -1,6 +1,7 @@
 {
   "schemaVersion": 1,
   "owner": "QuBenhao",
+  "profileRepository": "QuBenhao/QuBenhao",
   "source": {
     "apiBaseUrl": "https://api.github.com",
     "maxAgeDays": 14

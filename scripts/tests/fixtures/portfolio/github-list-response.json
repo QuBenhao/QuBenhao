@@ -1,0 +1,22 @@
+[
+  {
+    "name": "example",
+    "full_name": "QuBenhao/example",
+    "owner": {
+      "login": "QuBenhao"
+    },
+    "html_url": "https://github.com/QuBenhao/example",
+    "description": "A public example repository.",
+    "language": "Go",
+    "topics": [
+      "systems"
+    ],
+    "archived": false,
+    "disabled": false,
+    "visibility": "public",
+    "fork": false,
+    "default_branch": "master",
+    "updated_at": "2026-08-09T11:00:00Z",
+    "pushed_at": "2026-08-09T10:00:00Z"
+  }
+]
