@@ -1,0 +1,5 @@
+{
+  "path": "snapshot.repositories.0.owner",
+  "value": "OtherOwner",
+  "expected": "[repository-owner] QuBenhao/example reports owner OtherOwner"
+}

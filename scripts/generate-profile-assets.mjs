@@ -4,8 +4,13 @@ import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
+import {
+  assertValidPortfolio,
+  loadPortfolioFiles,
+  projectCardData,
+} from './lib/portfolio-index.mjs';
+
 const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..');
-const checkOnly = process.argv.includes('--check');
 
 const colors = {
   background: '#05090e',
@@ -19,51 +24,6 @@ const colors = {
 };
 
 const font = 'ui-monospace, SFMono-Regular, Menlo, Consolas, monospace';
-
-const sections = [
-  ['assets/section-github-signal.svg', 'PUBLIC ACTIVITY', 'GitHub signal', 'RANK · OUTPUT · LANGUAGES'],
-  ['assets/section-selected-work.svg', 'SELECTED WORK', 'Systems built for hard problems', '06 PROJECTS'],
-  ['assets/section-capability-map.svg', 'CAPABILITY MAP', 'Engineering systems, end to end', '04 DOMAINS'],
-];
-
-const projects = [
-  {
-    file: 'assets/projects/leetcode.svg',
-    title: 'LeetCode',
-    lines: ['Local problem-solving system with a custom runner,', 'solution templates, and progress tracking.'],
-    tags: 'PYTHON · AUTOMATION · CLI',
-  },
-  {
-    file: 'assets/projects/distributed-system.svg',
-    title: 'distributed-system',
-    lines: ['Raft consensus, fault-tolerant key-value services,', 'and sharded storage.'],
-    tags: 'GO · RAFT · DISTRIBUTED SYSTEMS',
-  },
-  {
-    file: 'assets/projects/xv6-lab.svg',
-    title: 'xv6-lab',
-    lines: ['Kernel labs covering syscalls, virtual memory,', 'storage, and scheduling.'],
-    tags: 'C · KERNEL · OPERATING SYSTEMS',
-  },
-  {
-    file: 'assets/projects/leetcode-mcp.svg',
-    title: 'LeetCodeMCP',
-    lines: ['Problem-solving workflows exposed as tools', 'for AI coding assistants.'],
-    tags: 'PYTHON · MCP · AI TOOLING',
-  },
-  {
-    file: 'assets/projects/gopushdeer.svg',
-    title: 'gopushdeer',
-    lines: ['Lightweight PushDeer SDK for cross-platform', 'push notifications from Go.'],
-    tags: 'GO · SDK · NOTIFICATIONS',
-  },
-  {
-    file: 'assets/projects/profile-command-deck.svg',
-    title: 'profile-command-deck',
-    lines: ['Generated SVG command deck with deterministic checks', 'and responsive GitHub profile previews.'],
-    tags: 'NODE.JS · SVG · GITHUB PROFILE',
-  },
-];
 
 const capabilities = [
   {
@@ -235,7 +195,9 @@ function sectionSvg(kicker, title, meta) {
 }
 
 function cardSvg(item, index, kind) {
-  const coordinate = kind === 'project' ? `PROJECT · ${String(index + 1).padStart(2, '0')}` : `DOMAIN · ${String(index + 1).padStart(2, '0')}`;
+  const coordinate = kind === 'project'
+    ? `PROJECT · ${String(index + 1).padStart(2, '0')} · ${item.status.toUpperCase()}`
+    : `DOMAIN · ${String(index + 1).padStart(2, '0')}`;
   const description = kind === 'project' ? item.lines.join(' ') : `${item.title}: ${item.lines.join(' ')}`;
   const lineMarkup = item.lines.map((line, lineIndex) => (
     `    <text x="28" y="${112 + lineIndex * 23}" fill="${colors.body}" font-size="14">${escapeXml(line)}</text>`
@@ -267,18 +229,29 @@ function footerSvg() {
   });
 }
 
-const outputs = new Map([
-  ['assets/profile-overview.svg', profileOverviewSvg()],
-  ['assets/identity-signal.svg', identitySvg()],
-  ...sections.map(([file, kicker, title, meta]) => [file, sectionSvg(kicker, title, meta)]),
-  ...projects.map((project, index) => [project.file, cardSvg(project, index, 'project')]),
-  ...capabilities.map((capability, index) => [capability.file, cardSvg(capability, index, 'capability')]),
-  ['assets/profile-footer.svg', footerSvg()],
-]);
+function generatedOutputs(manifest, snapshot) {
+  const projects = projectCardData(manifest, snapshot);
+  const sections = [
+    ['assets/section-github-signal.svg', 'PUBLIC ACTIVITY', 'GitHub signal', 'RANK · OUTPUT · LANGUAGES'],
+    ['assets/section-selected-work.svg', 'SELECTED WORK', 'Systems built for hard problems', `${String(projects.length).padStart(2, '0')} VERIFIED PROJECTS`],
+    ['assets/section-capability-map.svg', 'CAPABILITY MAP', 'Engineering systems, end to end', '04 DOMAINS'],
+  ];
+  return new Map([
+    ['assets/profile-overview.svg', profileOverviewSvg()],
+    ['assets/identity-signal.svg', identitySvg()],
+    ...sections.map(([file, kicker, title, meta]) => [file, sectionSvg(kicker, title, meta)]),
+    ...projects.map((project, index) => [project.file, cardSvg(project, index, 'project')]),
+    ...capabilities.map((capability, index) => [capability.file, cardSvg(capability, index, 'capability')]),
+    ['assets/profile-footer.svg', footerSvg()],
+  ]);
+}
 
-async function main() {
+export async function generateProfileAssets({ manifest, snapshot, checkOnly = false } = {}) {
+  if (!manifest || !snapshot) ({ manifest, snapshot } = await loadPortfolioFiles(repoRoot));
+  await assertValidPortfolio({ manifest, snapshot, repoRoot, checkFiles: true });
+
   let failed = false;
-  for (const [relativePath, expected] of outputs) {
+  for (const [relativePath, expected] of generatedOutputs(manifest, snapshot)) {
     const absolutePath = resolve(repoRoot, relativePath);
     if (checkOnly) {
       try {
@@ -301,4 +274,6 @@ async function main() {
   if (failed) process.exitCode = 1;
 }
 
-await main();
+if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
+  await generateProfileAssets({ checkOnly: process.argv.includes('--check') });
+}

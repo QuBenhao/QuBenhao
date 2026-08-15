@@ -28,12 +28,6 @@ assets=(
 live_links=(
   https://github.com/QuBenhao
   'https://github.com/QuBenhao?tab=repositories'
-  https://github.com/QuBenhao/LeetCode
-  https://github.com/QuBenhao/distributed-system
-  https://github.com/QuBenhao/xv6-lab
-  https://github.com/QuBenhao/LeetCodeMCP
-  https://github.com/QuBenhao/gopushdeer
-  https://github.com/QuBenhao/QuBenhao
 )
 
 require_literal() {
@@ -81,6 +75,7 @@ verify_assets() {
   require_literal 'FOCUS · LIVE' assets/profile-overview.svg 'focus status'
   require_literal '2014 — PRESENT' assets/profile-overview.svg 'experience range'
   require_literal 'Systems built for hard problems' assets/section-selected-work.svg 'section title'
+  require_literal '06 VERIFIED PROJECTS' assets/section-selected-work.svg 'verified project count'
   require_literal 'Backend runtime' assets/capabilities/backend-runtime.svg 'capability title'
 
   for section in \
@@ -105,31 +100,13 @@ verify_readme() {
     assets/section-selected-work.svg
     assets/section-capability-map.svg
     assets/profile-footer.svg
-    assets/projects/leetcode.svg
-    assets/projects/distributed-system.svg
-    assets/projects/xv6-lab.svg
-    assets/projects/leetcode-mcp.svg
-    assets/projects/gopushdeer.svg
-    assets/projects/profile-command-deck.svg
     assets/capabilities/backend-runtime.svg
     assets/capabilities/data-messaging.svg
     assets/capabilities/infrastructure.svg
     assets/capabilities/ai-tooling.svg
   )
-  local project_links=(
-    https://github.com/QuBenhao/LeetCode
-    https://github.com/QuBenhao/distributed-system
-    https://github.com/QuBenhao/xv6-lab
-    https://github.com/QuBenhao/LeetCodeMCP
-    https://github.com/QuBenhao/gopushdeer
-    https://github.com/QuBenhao/QuBenhao
-  )
-
   for asset in "${asset_refs[@]}"; do
     require_literal "$asset" README.md 'asset reference'
-  done
-  for link in "${project_links[@]}"; do
-    require_literal "$link" README.md 'project link'
   done
 
   require_count 'github-stats-extended\.vercel\.app' 2 'GitHub metric cards'
@@ -140,6 +117,9 @@ verify_readme() {
   require_literal 'include_all_commits=true' README.md 'activity-card query parameter'
   require_literal 'layout=compact' README.md 'language-card query parameter'
   require_literal 'card_width=455' README.md 'language-card width parameter'
+  require_literal '<a href="./PROJECTS.md">Verified project index</a>' README.md 'generated project index link'
+  require_count '<!-- portfolio-projects:start -->' 1 'portfolio start marker'
+  require_count '<!-- portfolio-projects:end -->' 1 'portfolio end marker'
 
   if rg -n 'height="[0-9]+"|assets/neural-command-deck\.svg|assets/focus-signal\.svg|assets/identity-signal\.svg|^[[:space:]]*<br>[[:space:]]*$' README.md; then
     echo "README contains fixed heights, retired top assets, or a standalone break" >&2
@@ -164,6 +144,11 @@ verify_readme() {
   fi
 }
 
+verify_portfolio() {
+  node --test scripts/tests/portfolio-index.test.mjs
+  node scripts/validate-portfolio-index.mjs
+}
+
 verify_links() {
   local link
   for link in "${live_links[@]}"; do
@@ -172,12 +157,14 @@ verify_links() {
       exit 1
     fi
   done
+  node scripts/validate-portfolio-index.mjs --online
 }
 
 case "${1:-all}" in
   assets) verify_assets ;;
   readme) verify_readme ;;
+  portfolio) verify_portfolio ;;
   links) verify_links ;;
-  all) verify_assets; verify_readme ;;
-  *) echo "usage: $0 [assets|readme|links|all]" >&2; exit 2 ;;
+  all) verify_portfolio; verify_assets; verify_readme ;;
+  *) echo "usage: $0 [assets|readme|portfolio|links|all]" >&2; exit 2 ;;
 esac

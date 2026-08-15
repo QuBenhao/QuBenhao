@@ -1,0 +1,46 @@
+{
+  "now": "2026-08-15T00:00:00.000Z",
+  "manifest": {
+    "schemaVersion": 1,
+    "owner": "QuBenhao",
+    "source": {
+      "apiBaseUrl": "https://api.github.com",
+      "maxAgeDays": 14
+    },
+    "projects": [
+      {
+        "repository": "QuBenhao/example",
+        "asset": "assets/projects/example.svg"
+      }
+    ]
+  },
+  "snapshot": {
+    "schemaVersion": 1,
+    "source": {
+      "provider": "github-rest",
+      "apiVersion": "2022-11-28",
+      "retrievedAt": "2026-08-10T12:00:00.000Z"
+    },
+    "repositories": [
+      {
+        "name": "example",
+        "fullName": "QuBenhao/example",
+        "owner": "QuBenhao",
+        "htmlUrl": "https://github.com/QuBenhao/example",
+        "description": "A public example repository.",
+        "language": "Go",
+        "topics": [
+          "systems"
+        ],
+        "archived": false,
+        "disabled": false,
+        "visibility": "public",
+        "fork": false,
+        "defaultBranch": "master",
+        "updatedAt": "2026-08-09T11:00:00Z",
+        "pushedAt": "2026-08-09T10:00:00Z",
+        "status": "active"
+      }
+    ]
+  }
+}

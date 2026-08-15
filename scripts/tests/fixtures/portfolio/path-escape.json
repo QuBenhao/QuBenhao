@@ -1,0 +1,5 @@
+{
+  "path": "manifest.projects.0.asset",
+  "value": "../private/example.svg",
+  "expected": "[path-owner] manifest.projects[0].asset must be a normalized path below assets/projects"
+}

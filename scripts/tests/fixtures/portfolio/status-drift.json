@@ -1,0 +1,5 @@
+{
+  "path": "snapshot.repositories.0.status",
+  "value": "archived",
+  "expected": "[project-status] QuBenhao/example status archived disagrees with GitHub state"
+}

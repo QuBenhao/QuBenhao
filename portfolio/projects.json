@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "owner": "QuBenhao",
+  "source": {
+    "apiBaseUrl": "https://api.github.com",
+    "maxAgeDays": 14
+  },
+  "projects": [
+    {
+      "repository": "QuBenhao/LeetCode",
+      "asset": "assets/projects/leetcode.svg"
+    },
+    {
+      "repository": "QuBenhao/distributed-system",
+      "asset": "assets/projects/distributed-system.svg"
+    },
+    {
+      "repository": "QuBenhao/xv6-lab",
+      "asset": "assets/projects/xv6-lab.svg"
+    },
+    {
+      "repository": "QuBenhao/LeetCodeMCP",
+      "asset": "assets/projects/leetcode-mcp.svg"
+    },
+    {
+      "repository": "QuBenhao/gopushdeer",
+      "asset": "assets/projects/gopushdeer.svg"
+    },
+    {
+      "repository": "QuBenhao/QuBenhao",
+      "asset": "assets/projects/profile-command-deck.svg"
+    }
+  ]
+}

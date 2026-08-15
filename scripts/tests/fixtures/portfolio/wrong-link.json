@@ -1,0 +1,5 @@
+{
+  "path": "snapshot.repositories.0.htmlUrl",
+  "value": "https://example.com/QuBenhao/example",
+  "expected": "[repository-link] QuBenhao/example must link to https://github.com/QuBenhao/example"
+}

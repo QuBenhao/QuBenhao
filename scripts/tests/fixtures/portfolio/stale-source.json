@@ -1,0 +1,5 @@
+{
+  "path": "snapshot.source.retrievedAt",
+  "value": "2026-07-01T00:00:00.000Z",
+  "expected": "[source-freshness] snapshot is older than 14 days"
+}

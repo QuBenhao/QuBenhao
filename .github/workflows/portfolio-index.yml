@@ -1,0 +1,27 @@
+name: Portfolio index
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+  schedule:
+    - cron: '23 3 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Validate generated profile and portfolio index
+        run: bash scripts/verify-profile.sh all
+      - name: Verify public links and current GitHub metadata
+        run: bash scripts/verify-profile.sh links

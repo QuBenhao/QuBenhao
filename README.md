@@ -10,11 +10,16 @@
 <div align="center">
   <img src="./assets/section-selected-work.svg" alt="Selected work: systems built for hard problems" width="100%" />
 </div>
+<!-- portfolio-projects:start -->
 <p align="center">
-  <a href="https://github.com/QuBenhao/LeetCode"><img src="./assets/projects/leetcode.svg" alt="LeetCode — Python automation and CLI problem-solving system" width="380" /></a><a href="https://github.com/QuBenhao/distributed-system"><img src="./assets/projects/distributed-system.svg" alt="distributed-system — Go, Raft, and distributed systems labs" width="380" /></a><br>
-  <a href="https://github.com/QuBenhao/xv6-lab"><img src="./assets/projects/xv6-lab.svg" alt="xv6-lab — C kernel and operating systems labs" width="380" /></a><a href="https://github.com/QuBenhao/LeetCodeMCP"><img src="./assets/projects/leetcode-mcp.svg" alt="LeetCodeMCP — Python MCP tools for coding assistants" width="380" /></a><br>
-  <a href="https://github.com/QuBenhao/gopushdeer"><img src="./assets/projects/gopushdeer.svg" alt="gopushdeer — Go SDK for push notifications" width="380" /></a><a href="https://github.com/QuBenhao/QuBenhao"><img src="./assets/projects/profile-command-deck.svg" alt="profile-command-deck — deterministic generated SVG profile" width="380" /></a>
+  <a href="https://github.com/QuBenhao/LeetCode"><img src="./assets/projects/leetcode.svg" alt="LeetCode — Solving LeetCode locally and keep tracking of your solutions." width="380" /></a><a href="https://github.com/QuBenhao/distributed-system"><img src="./assets/projects/distributed-system.svg" alt="distributed-system — 6.5840" width="380" /></a><br>
+  <a href="https://github.com/QuBenhao/xv6-lab"><img src="./assets/projects/xv6-lab.svg" alt="xv6-lab — MIT 6.S081: Operating System Engineering" width="380" /></a><a href="https://github.com/QuBenhao/LeetCodeMCP"><img src="./assets/projects/leetcode-mcp.svg" alt="LeetCodeMCP — LeetCodeMCP" width="380" /></a><br>
+  <a href="https://github.com/QuBenhao/gopushdeer"><img src="./assets/projects/gopushdeer.svg" alt="gopushdeer — Pushdeer SDK for Golang" width="380" /></a><a href="https://github.com/QuBenhao/QuBenhao"><img src="./assets/projects/profile-command-deck.svg" alt="QuBenhao — Content show on home page" width="380" /></a><br>
 </p>
+<p align="center">
+  <a href="./PROJECTS.md">Verified project index</a> · public source ownership, status, and freshness checked in CI
+</p>
+<!-- portfolio-projects:end -->
 <div align="center">
   <img src="./assets/section-capability-map.svg" alt="Capability map: engineering systems end to end" width="100%" />
 </div>
