@@ -149,6 +149,20 @@ verify_portfolio() {
   node scripts/validate-portfolio-index.mjs
 }
 
+verify_remote_svg() {
+  local encoded_link="$1"
+  local link="${encoded_link//&amp;/\&}"
+  local content_type
+  if ! content_type="$(curl --max-time 20 --proto '=https' --proto-redir '=https' --tlsv1.2 -fsSL -o /dev/null --write-out '%{content_type}' "$link")"; then
+    echo "SVG link check failed: $link" >&2
+    exit 1
+  fi
+  if [[ "$content_type" != 'image/svg+xml' && "$content_type" != image/svg+xml\;* ]]; then
+    echo "SVG link returned unexpected content type $content_type: $link" >&2
+    exit 1
+  fi
+}
+
 verify_links() {
   local link
   for link in "${live_links[@]}"; do
@@ -157,6 +171,19 @@ verify_links() {
       exit 1
     fi
   done
+
+  local metric_link
+  local metric_count=0
+  while IFS= read -r metric_link; do
+    ((metric_count += 1))
+    verify_remote_svg "$metric_link"
+  done < <(rg -o 'https://github-stats-extended\.vercel\.app[^"]+' README.md)
+  if [[ "$metric_count" -ne 2 ]]; then
+    echo "README expected 2 live GitHub metric images, found $metric_count" >&2
+    exit 1
+  fi
+  echo "live GitHub metric images valid: $metric_count SVGs"
+
   node scripts/validate-portfolio-index.mjs --online
 }
 
