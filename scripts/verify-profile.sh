@@ -163,14 +163,39 @@ verify_remote_svg() {
   fi
 }
 
+verify_http_link() {
+  local link="$1"
+  if ! curl --max-time 20 --proto '=https' --proto-redir '=https' --tlsv1.2 -fsSL -o /dev/null "$link"; then
+    echo "link check failed: $link" >&2
+    exit 1
+  fi
+}
+
 verify_links() {
   local link
   for link in "${live_links[@]}"; do
-    if ! curl --max-time 20 --proto '=https' --proto-redir '=https' --tlsv1.2 -fsSL -o /dev/null "$link"; then
-      echo "link check failed: $link" >&2
-      exit 1
-    fi
+    verify_http_link "$link"
   done
+
+  local project_links
+  if ! project_links="$(node --input-type=module -e '
+    import { canonicalRepositoryUrl, readJson } from "./scripts/lib/portfolio-index.mjs";
+
+    const manifest = await readJson("portfolio/projects.json");
+    for (const { repository } of manifest.projects) console.log(canonicalRepositoryUrl(repository));
+  ')"; then
+    echo "unable to enumerate manifest project links" >&2
+    exit 1
+  fi
+
+  local project_link
+  local project_count=0
+  while IFS= read -r project_link; do
+    [[ -n "$project_link" ]] || continue
+    ((project_count += 1))
+    verify_http_link "$project_link"
+  done <<< "$project_links"
+  echo "live project links valid: $project_count"
 
   local metric_link
   local metric_count=0

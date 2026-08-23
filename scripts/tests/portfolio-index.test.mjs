@@ -7,8 +7,11 @@ import { fileURLToPath } from 'node:url';
 
 import {
   assertValidPortfolio,
+  canonicalRepositoryUrl,
   diffRepositorySnapshots,
   fetchGitHubSnapshot,
+  readmeEndMarker,
+  readmeStartMarker,
   renderProjectsMarkdown,
   renderReadmeProjectBlock,
 } from '../lib/portfolio-index.mjs';
@@ -24,6 +27,18 @@ function setPath(value, path, replacement) {
   let target = value;
   for (const key of keys.slice(0, -1)) target = target[key];
   target[keys.at(-1)] = replacement;
+}
+
+function projectLinks(value) {
+  return [...value.matchAll(/<a href="(https:\/\/github\.com\/[^"]+)"><img src="\.\/assets\/projects\//g)]
+    .map(([, link]) => link);
+}
+
+function projectBlock(value) {
+  const start = value.indexOf(readmeStartMarker);
+  const end = value.indexOf(readmeEndMarker);
+  assert.ok(start >= 0 && end >= start);
+  return value.slice(start, end + readmeEndMarker.length);
 }
 
 const valid = await fixture('valid.json');
@@ -42,6 +57,23 @@ test('valid portfolio data renders deterministic public documents', async () => 
   assert.match(index, /\| `active` \|/);
   assert.match(readmeBlock, /src="\.\/assets\/projects\/example\.svg"/);
   assert.doesNotMatch(`${index}\n${readmeBlock}`, /\/Users\/|\/home\/|file:\/\//);
+});
+
+test('matches generated README project links to six manifest-selected canonical URLs', async () => {
+  const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), '../..');
+  const [manifestText, snapshotText, readme] = await Promise.all([
+    readFile(resolve(repoRoot, 'portfolio/projects.json'), 'utf8'),
+    readFile(resolve(repoRoot, 'portfolio/github-metadata.json'), 'utf8'),
+    readFile(resolve(repoRoot, 'README.md'), 'utf8'),
+  ]);
+  const manifest = JSON.parse(manifestText);
+  const snapshot = JSON.parse(snapshotText);
+  const expected = manifest.projects.map(({ repository }) => canonicalRepositoryUrl(repository));
+
+  assert.equal(expected.length, 6);
+  assert.equal(new Set(expected).size, expected.length);
+  assert.deepEqual(projectLinks(renderReadmeProjectBlock(manifest, snapshot)), expected);
+  assert.deepEqual(projectLinks(projectBlock(readme)), expected);
 });
 
 test('rejects a project asset symlink that escapes the repository', async () => {
