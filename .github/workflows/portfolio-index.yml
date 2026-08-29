@@ -12,13 +12,18 @@ on:
 permissions:
   contents: read
 
+concurrency:
+  group: portfolio-index-${{ github.ref }}
+  cancel-in-progress: false
+
 jobs:
   validate:
+    if: ${{ github.event_name == 'push' || github.event_name == 'pull_request' }}
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
         with:
           node-version: 22
       - name: Install profile verifier tools
@@ -29,3 +34,99 @@ jobs:
         run: bash scripts/verify-profile.sh all
       - name: Verify public links and current GitHub metadata
         run: bash scripts/verify-profile.sh links
+
+  refresh:
+    if: ${{ (github.event_name == 'schedule' || github.event_name == 'workflow_dispatch') && github.ref == 'refs/heads/master' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    outputs:
+      refresh_needed: ${{ steps.patch.outputs.refresh_needed }}
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: 22
+      - name: Install profile verifier tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install --no-install-recommends --yes libxml2-utils ripgrep
+      - name: Compute and verify generated-only refresh
+        run: node scripts/refresh-portfolio-index.mjs
+      - name: Build reviewed refresh patch
+        id: patch
+        shell: bash
+        run: |
+          git add --all
+          if git diff --cached --quiet --exit-code; then
+            echo 'refresh_needed=false' >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          git diff --cached --binary --full-index --no-ext-diff > "$RUNNER_TEMP/portfolio-refresh.patch"
+          echo 'refresh_needed=true' >> "$GITHUB_OUTPUT"
+      - name: Upload reviewed refresh patch
+        if: ${{ steps.patch.outputs.refresh_needed == 'true' }}
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: portfolio-refresh-${{ github.run_id }}
+          path: ${{ runner.temp }}/portfolio-refresh.patch
+          if-no-files-found: error
+          retention-days: 1
+      - name: Verify public links and refreshed GitHub metadata
+        run: bash scripts/verify-profile.sh links
+
+  deliver_refresh:
+    needs: refresh
+    if: ${{ needs.refresh.outputs.refresh_needed == 'true' && github.ref == 'refs/heads/master' && vars.PORTFOLIO_REFRESH_DELIVERY == 'enabled' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: 22
+      - name: Install profile verifier tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install --no-install-recommends --yes libxml2-utils ripgrep
+      - name: Reject overlapping refresh pull requests
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          existing_url="$(gh pr list --base master --state open --limit 100 --json headRefName,headRepositoryOwner,isCrossRepository,url --jq 'map(select(.isCrossRepository == false and .headRepositoryOwner.login == "QuBenhao" and (.headRefName | startswith("codex/portfolio-refresh-"))))[0].url // ""')"
+          if [[ -n "$existing_url" ]]; then
+            echo "an existing portfolio refresh pull request is still open: $existing_url" >&2
+            exit 1
+          fi
+      - name: Download reviewed refresh patch
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
+        with:
+          name: portfolio-refresh-${{ github.run_id }}
+          path: ${{ runner.temp }}/portfolio-refresh
+      - name: Reverify and commit refresh candidate
+        id: candidate
+        shell: bash
+        run: |
+          refresh_branch="codex/portfolio-refresh-${GITHUB_RUN_ID}"
+          git switch -c "$refresh_branch"
+          git apply --index "$RUNNER_TEMP/portfolio-refresh/portfolio-refresh.patch"
+          node scripts/refresh-portfolio-index.mjs --verify-existing
+          git diff --cached --check
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'chore: refresh portfolio index'
+          git push origin "HEAD:refs/heads/$refresh_branch"
+          echo "refresh_branch=$refresh_branch" >> "$GITHUB_OUTPUT"
+      - name: Open refresh pull request
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REFRESH_BRANCH: ${{ steps.candidate.outputs.refresh_branch }}
+        run: >-
+          gh pr create
+          --base master
+          --head "$REFRESH_BRANCH"
+          --title 'chore: refresh portfolio index'
+          --body 'Automated generated-only portfolio refresh. The workflow re-ran the canonical updater and profile verifier before opening this pull request.'

@@ -15,6 +15,9 @@ import {
   renderProjectsMarkdown,
   renderReadmeProjectBlock,
 } from '../lib/portfolio-index.mjs';
+import { assertGeneratedOnlyRefresh } from '../lib/portfolio-refresh.mjs';
+import { generatedProfileOutputPaths } from '../generate-profile-assets.mjs';
+import { updatePortfolioIndex } from '../update-portfolio-index.mjs';
 
 const fixtureRoot = resolve(dirname(fileURLToPath(import.meta.url)), 'fixtures/portfolio');
 
@@ -42,6 +45,76 @@ function projectBlock(value) {
 }
 
 const valid = await fixture('valid.json');
+
+test('accepts exact generated refresh surfaces while preserving the authored README shell', () => {
+  const beforeReadme = `heading\n${readmeStartMarker}\nold generated block\n${readmeEndMarker}\nfooter\n`;
+  const afterReadme = `heading\n${readmeStartMarker}\nnew generated block\n${readmeEndMarker}\nfooter\n`;
+  assert.doesNotThrow(() => assertGeneratedOnlyRefresh({
+    manifest: valid.manifest,
+    snapshot: valid.snapshot,
+    changedPaths: [
+      'PROJECTS.md',
+      'README.md',
+      'portfolio/github-metadata.json',
+      'assets/projects/example.svg',
+    ],
+    beforeReadme,
+    afterReadme,
+  }));
+});
+
+test('reapplying one captured source observation is byte-stable', async () => {
+  const sandbox = await mkdtemp(join(tmpdir(), 'portfolio-refresh-'));
+  const repoRoot = resolve(sandbox, 'repo');
+  const capturedSnapshot = structuredClone(valid.snapshot);
+  capturedSnapshot.source.retrievedAt = new Date().toISOString();
+  try {
+    await mkdir(resolve(repoRoot, 'portfolio'), { recursive: true });
+    await mkdir(resolve(repoRoot, 'assets/projects'), { recursive: true });
+    await writeFile(resolve(repoRoot, 'portfolio/projects.json'), `${JSON.stringify(valid.manifest, null, 2)}\n`, 'utf8');
+    await writeFile(resolve(repoRoot, 'README.md'), `heading\n${readmeStartMarker}\nold\n${readmeEndMarker}\nfooter\n`, 'utf8');
+    await writeFile(resolve(repoRoot, 'assets/projects/example.svg'), '<svg/>\n', 'utf8');
+
+    await updatePortfolioIndex({ root: repoRoot, snapshot: capturedSnapshot });
+    const outputPaths = [
+      'PROJECTS.md',
+      'README.md',
+      'portfolio/github-metadata.json',
+      ...generatedProfileOutputPaths(valid.manifest, capturedSnapshot),
+    ];
+    const first = await Promise.all(outputPaths.map((path) => readFile(resolve(repoRoot, path), 'utf8')));
+
+    await updatePortfolioIndex({ root: repoRoot, snapshot: capturedSnapshot });
+    const second = await Promise.all(outputPaths.map((path) => readFile(resolve(repoRoot, path), 'utf8')));
+    assert.deepEqual(second, first);
+  } finally {
+    await rm(sandbox, { recursive: true, force: true });
+  }
+});
+
+test('rejects unexpected authored refresh changes', () => {
+  const beforeReadme = `heading\n${readmeStartMarker}\ngenerated\n${readmeEndMarker}\nfooter\n`;
+  assert.throws(
+    () => assertGeneratedOnlyRefresh({
+      manifest: valid.manifest,
+      snapshot: valid.snapshot,
+      changedPaths: ['notes.txt'],
+      beforeReadme,
+      afterReadme: beforeReadme,
+    }),
+    /unexpected authored paths:\n- notes\.txt/,
+  );
+  assert.throws(
+    () => assertGeneratedOnlyRefresh({
+      manifest: valid.manifest,
+      snapshot: valid.snapshot,
+      changedPaths: ['README.md'],
+      beforeReadme,
+      afterReadme: `changed heading\n${readmeStartMarker}\ngenerated\n${readmeEndMarker}\nfooter\n`,
+    }),
+    /changed authored README bytes/,
+  );
+});
 
 test('valid portfolio data renders deterministic public documents', async () => {
   await assertValidPortfolio({

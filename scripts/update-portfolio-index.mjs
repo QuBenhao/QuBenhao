@@ -16,24 +16,31 @@ import {
 } from './lib/portfolio-index.mjs';
 
 const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..');
-const manifestPath = resolve(repoRoot, 'portfolio/projects.json');
-const snapshotPath = resolve(repoRoot, 'portfolio/github-metadata.json');
-const projectsPath = resolve(repoRoot, 'PROJECTS.md');
-const readmePath = resolve(repoRoot, 'README.md');
 
-const manifest = await readJson(manifestPath);
-const snapshot = await fetchGitHubSnapshot(manifest);
-await assertValidPortfolio({ manifest, snapshot, repoRoot, checkFiles: true });
+export async function updatePortfolioIndex({ root = repoRoot, snapshot } = {}) {
+  const manifestPath = resolve(root, 'portfolio/projects.json');
+  const snapshotPath = resolve(root, 'portfolio/github-metadata.json');
+  const projectsPath = resolve(root, 'PROJECTS.md');
+  const readmePath = resolve(root, 'README.md');
 
-const readme = await readFile(readmePath, 'utf8');
-const projectsDocument = renderProjectsMarkdown(manifest, snapshot);
-const nextReadme = replaceReadmeProjectBlock(readme, renderReadmeProjectBlock(manifest, snapshot));
-assertPublicContent(projectsDocument, 'PROJECTS.md');
-assertPublicContent(nextReadme, 'README.md');
+  const manifest = await readJson(manifestPath);
+  const nextSnapshot = snapshot ?? await fetchGitHubSnapshot(manifest);
+  await assertValidPortfolio({ manifest, snapshot: nextSnapshot, repoRoot: root, checkFiles: true });
 
-await writeFile(snapshotPath, `${JSON.stringify(snapshot, null, 2)}\n`, 'utf8');
-await writeFile(projectsPath, projectsDocument, 'utf8');
-await writeFile(readmePath, nextReadme, 'utf8');
-await generateProfileAssets({ manifest, snapshot, checkOnly: false });
+  const readme = await readFile(readmePath, 'utf8');
+  const projectsDocument = renderProjectsMarkdown(manifest, nextSnapshot);
+  const nextReadme = replaceReadmeProjectBlock(readme, renderReadmeProjectBlock(manifest, nextSnapshot));
+  assertPublicContent(projectsDocument, 'PROJECTS.md');
+  assertPublicContent(nextReadme, 'README.md');
 
-console.log(`updated ${manifest.projects.length} projects from public GitHub metadata captured at ${snapshot.source.retrievedAt}`);
+  await writeFile(snapshotPath, `${JSON.stringify(nextSnapshot, null, 2)}\n`, 'utf8');
+  await writeFile(projectsPath, projectsDocument, 'utf8');
+  await writeFile(readmePath, nextReadme, 'utf8');
+  await generateProfileAssets({ manifest, snapshot: nextSnapshot, checkOnly: false, root });
+
+  console.log(`updated ${manifest.projects.length} projects from public GitHub metadata captured at ${nextSnapshot.source.retrievedAt}`);
+}
+
+if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
+  await updatePortfolioIndex();
+}

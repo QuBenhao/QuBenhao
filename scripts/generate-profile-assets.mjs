@@ -229,7 +229,7 @@ function footerSvg() {
   });
 }
 
-function generatedOutputs(manifest, snapshot) {
+export function generatedProfileOutputs(manifest, snapshot) {
   const projects = projectCardData(manifest, snapshot);
   const sections = [
     ['assets/section-github-signal.svg', 'PUBLIC ACTIVITY', 'GitHub signal', 'RANK · OUTPUT · LANGUAGES'],
@@ -246,13 +246,17 @@ function generatedOutputs(manifest, snapshot) {
   ]);
 }
 
-export async function generateProfileAssets({ manifest, snapshot, checkOnly = false } = {}) {
-  if (!manifest || !snapshot) ({ manifest, snapshot } = await loadPortfolioFiles(repoRoot));
-  await assertValidPortfolio({ manifest, snapshot, repoRoot, checkFiles: true });
+export function generatedProfileOutputPaths(manifest, snapshot) {
+  return [...generatedProfileOutputs(manifest, snapshot).keys()];
+}
+
+export async function generateProfileAssets({ manifest, snapshot, checkOnly = false, root = repoRoot } = {}) {
+  if (!manifest || !snapshot) ({ manifest, snapshot } = await loadPortfolioFiles(root));
+  await assertValidPortfolio({ manifest, snapshot, repoRoot: root, checkFiles: true });
 
   let failed = false;
-  for (const [relativePath, expected] of generatedOutputs(manifest, snapshot)) {
-    const absolutePath = resolve(repoRoot, relativePath);
+  for (const [relativePath, expected] of generatedProfileOutputs(manifest, snapshot)) {
+    const absolutePath = resolve(root, relativePath);
     if (checkOnly) {
       try {
         const actual = await readFile(absolutePath, 'utf8');
