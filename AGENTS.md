@@ -9,7 +9,7 @@ This `master`-branch repository is the public GitHub profile and verified portfo
 ## Workflow
 
 * Run `node --test scripts/tests/portfolio-index.test.mjs` for manifest and renderer changes.
-* Run `bash scripts/verify-profile.sh all` for the source candidate. It validates the manifest, generated profile, SVGs, and README without proving public links are live.
+* For profile, manifest, renderer, or SVG changes, run `bash scripts/verify-profile.sh all` on the final source candidate. It validates the manifest, generated profile, SVGs, and README without proving public links are live. Instruction-only changes need diff and reference review.
 * Run `bash scripts/verify-profile.sh links` only when current network-backed link and GitHub metadata evidence is required.
 * Use `node scripts/update-portfolio-index.mjs` after an intentional manifest change; review all generated changes before accepting them.
 
