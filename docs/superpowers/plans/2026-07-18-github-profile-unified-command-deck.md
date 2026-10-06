@@ -13,7 +13,7 @@
 - No native headings such as `01 / SYSTEM ID`, `02 / SELECTED SYSTEMS`, or `03 / SYSTEM MATRIX`.
 - No display headings such as `CORE // BACKEND RUNTIME`.
 - No standalone `Operator profile` section or terminal identity block.
-- Identity rail values are exactly `ACTIVE`, `GUANGZHOU, CN`, `2014 — PRESENT`, and `UTC+08:00`.
+- Identity rail values are exactly `ACTIVE` and `2014 — PRESENT`.
 - Hero domain line is exactly `BACKEND · DISTRIBUTED SYSTEMS · AI TOOLING · DEVELOPER PRODUCTIVITY`.
 - The hero contains no manually maintained programming-language list.
 - Project cards retain project-specific primary-language tags.
@@ -30,11 +30,11 @@
 - Create `scripts/generate-profile-assets.mjs`: deterministic generator for identity, section, footer, project, and capability SVGs.
 - Create `scripts/verify-profile.sh`: repository-owned contract verifier for generated SVGs and `README.md`.
 - Create `scripts/render-profile-preview.mjs`: dependency-free local HTML wrapper for responsive README inspection.
-- Create `assets/identity-signal.svg`: four-cell identity rail.
+- Create `assets/identity-signal.svg`: two-cell identity rail.
 - Create `assets/section-github-signal.svg`: live-metrics section header.
 - Create `assets/section-selected-work.svg`: project section header.
 - Create `assets/section-capability-map.svg`: capability section header.
-- Create `assets/profile-footer.svg`: quote and location footer.
+- Create `assets/profile-footer.svg`: quote and collaboration footer.
 - Create six SVGs under `assets/projects/`: individually linked project cards.
 - Create four SVGs under `assets/capabilities/`: responsive capability cards.
 - Modify `README.md`: compose repository-owned and remote cards without native tables or headings.
@@ -58,8 +58,7 @@ Run:
 ```bash
 rtk rg -q '>BENHAO · SYSTEMS ENGINEER<' assets/neural-command-deck.svg &&
 rtk rg -q '>BACKEND · DISTRIBUTED SYSTEMS · AI TOOLING · DEVELOPER PRODUCTIVITY<' assets/neural-command-deck.svg &&
-rtk rg -q '>FOCUS · LIVE<' assets/focus-signal.svg &&
-rtk rg -q '>GUANGZHOU, CN · UTC\+08:00<' assets/neural-command-deck.svg
+rtk rg -q '>FOCUS · LIVE<' assets/focus-signal.svg
 ```
 
 Expected: non-zero exit on the first assertion because `BENHAO · SYSTEMS ENGINEER` is not present yet.
@@ -79,9 +78,7 @@ Use `apply_patch`:
 +    <text x="66" y="70" fill="#68e8ff" font-size="16" font-weight="700" letter-spacing="4">BENHAO · SYSTEMS ENGINEER</text>
 @@
 -    <text x="66" y="218" fill="#9bb1bb" font-size="10.5" letter-spacing="0.5">GO · C++ · PYTHON · JAVA · KOTLIN · TYPESCRIPT // BACKEND · DISTRIBUTED SYSTEMS · AI TOOLING</text>
--    <text x="66" y="260" fill="#7796a3" font-size="12" letter-spacing="2">GUANGZHOU, CN // UTC+08:00</text>
 +    <text x="66" y="218" fill="#9bb1bb" font-size="11.5" letter-spacing="0.7">BACKEND · DISTRIBUTED SYSTEMS · AI TOOLING · DEVELOPER PRODUCTIVITY</text>
-+    <text x="66" y="260" fill="#7796a3" font-size="12" letter-spacing="2">GUANGZHOU, CN · UTC+08:00</text>
 *** End Patch
 ```
 
@@ -107,11 +104,10 @@ rtk xmllint --noout assets/neural-command-deck.svg assets/focus-signal.svg
 rtk rg -q '>BENHAO · SYSTEMS ENGINEER<' assets/neural-command-deck.svg
 rtk rg -q '>BACKEND · DISTRIBUTED SYSTEMS · AI TOOLING · DEVELOPER PRODUCTIVITY<' assets/neural-command-deck.svg
 rtk rg -q '>FOCUS · LIVE<' assets/focus-signal.svg
-rtk rg -q '>GUANGZHOU, CN · UTC\+08:00<' assets/neural-command-deck.svg
-if rtk rg -n 'BENHAO //|GO · C\+\+|FOCUS //|GUANGZHOU, CN //' assets/neural-command-deck.svg assets/focus-signal.svg; then exit 1; fi
+if rtk rg -n 'BENHAO //|GO · C\+\+|FOCUS //' assets/neural-command-deck.svg assets/focus-signal.svg; then exit 1; fi
 ```
 
-Expected: XML validation and all four approved-copy assertions succeed; the banned-copy guard returns no matches.
+Expected: XML validation and all three approved-copy assertions succeed; the banned-copy guard returns no matches.
 
 - [ ] **Step 5: Commit the animated-asset slice**
 
@@ -348,12 +344,10 @@ ${body}
 function identitySvg() {
   const cells = [
     ['STATUS', '● ACTIVE', colors.green],
-    ['BASE', 'GUANGZHOU, CN', colors.text],
     ['EXPERIENCE', '2014 — PRESENT', colors.text],
-    ['LOCAL TIME', 'UTC+08:00', colors.text],
   ];
   const body = cells.map(([label, value, color], index) => {
-    const x = index * 300;
+    const x = index * 600;
     const divider = index === 0 ? '' : `    <path d="M${x} 18V87" stroke="${colors.border}"/>\n`;
     return `${divider}    <text x="${x + 28}" y="37" fill="${colors.muted}" font-size="11" font-weight="700" letter-spacing="2">${label}</text>
     <text x="${x + 28}" y="70" fill="${color}" font-size="17" font-weight="700">${value}</text>`;
@@ -362,7 +356,7 @@ function identitySvg() {
     width: 1200,
     height: 105,
     title: 'Profile identity signal',
-    description: 'Active status, Guangzhou location, experience since 2014, and UTC plus eight local time.',
+    description: 'Active status and experience since 2014.',
     body,
     radius: 12,
   });
@@ -408,9 +402,9 @@ function footerSvg() {
     width: 1200,
     height: 104,
     title: 'Profile footer',
-    description: 'The best code solves the problem elegantly. Guangzhou, China, UTC plus eight, open to interesting collaborations.',
+    description: 'The best code solves the problem elegantly. Open to interesting collaborations.',
     body: `    <text x="600" y="43" fill="${colors.body}" font-size="17" text-anchor="middle">“The best code solves the problem elegantly.”</text>
-    <text x="600" y="76" fill="${colors.muted}" font-size="11" text-anchor="middle" letter-spacing="2">GUANGZHOU, CN · UTC+08:00 · OPEN TO INTERESTING COLLABORATIONS</text>`,
+    <text x="600" y="76" fill="${colors.muted}" font-size="11" text-anchor="middle" letter-spacing="2">OPEN TO INTERESTING COLLABORATIONS</text>`,
     radius: 12,
   });
 }
@@ -580,7 +574,7 @@ Use `apply_patch` to replace the file with:
 </div>
 
 <div align="center">
-  <img src="./assets/identity-signal.svg" alt="Active in Guangzhou, China; building software since 2014; local time UTC plus eight" width="100%" />
+  <img src="./assets/identity-signal.svg" alt="Active; building software since 2014" width="100%" />
 </div>
 
 <br>
@@ -628,7 +622,7 @@ Use `apply_patch` to replace the file with:
 <br>
 
 <div align="center">
-  <img src="./assets/profile-footer.svg" alt="The best code solves the problem elegantly. Guangzhou, China, UTC plus eight; open to interesting collaborations." width="100%" />
+  <img src="./assets/profile-footer.svg" alt="The best code solves the problem elegantly. Open to interesting collaborations." width="100%" />
 </div>
 ```
 
@@ -778,15 +772,16 @@ Run:
 
 ```bash
 rtk node scripts/render-profile-preview.mjs
+rtk python3 -m http.server 61316 --directory .
 ```
 
-Using the Browser skill, open this exact URL:
+Keep the HTTP server running during browser verification and open:
 
 ```text
-file:///Users/benhao/Projects/QuBenhao/.superpowers/profile-preview.html
+http://localhost:61316/.superpowers/profile-preview.html
 ```
 
-Inspect once at the normal browser width. Then use the Browser viewport capability to set the viewport to 375 px wide, reload the same file, and inspect again. Reset the viewport override afterward.
+Inspect once at the normal browser width. Then use the Browser viewport capability to set the viewport to 375 px wide, reload the same page, and inspect again. Reset the viewport override and stop the server afterward.
 
 Confirm:
 

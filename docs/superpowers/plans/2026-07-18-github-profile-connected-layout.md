@@ -73,12 +73,10 @@ Insert this function before `identitySvg()` in `scripts/generate-profile-assets.
 function profileOverviewSvg() {
   const cells = [
     ['STATUS', '● ACTIVE', colors.green],
-    ['BASE', 'GUANGZHOU, CN', colors.text],
     ['EXPERIENCE', '2014 — PRESENT', colors.text],
-    ['LOCAL TIME', 'UTC+08:00', colors.text],
   ];
   const identity = cells.map(([label, value, color], index) => {
-    const x = index * 300;
+    const x = index * 600;
     const divider = index === 0 ? '' : `    <path d="M${x} 358V426" stroke="${colors.border}"/>\n`;
     return `${divider}    <text x="${x + 32}" y="379" fill="${colors.muted}" font-size="10" font-weight="700" letter-spacing="2">${label}</text>
     <text x="${x + 32}" y="414" fill="${color}" font-size="17" font-weight="700">${value}</text>`;
@@ -86,7 +84,7 @@ function profileOverviewSvg() {
 
   return `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="440" viewBox="0 0 1200 440" role="img" aria-labelledby="title desc">
   <title id="title">Benhao Qu — systems engineer building intelligent systems</title>
-  <desc id="desc">Systems engineer in Guangzhou focused on backend runtime, distributed systems, AI tooling, and developer productivity. Active since 2014 in UTC plus eight.</desc>
+  <desc id="desc">Systems engineer focused on backend runtime, distributed systems, AI tooling, and developer productivity. Active since 2014.</desc>
   <defs>
     <linearGradient id="overview-background" x1="0" y1="0" x2="1" y2="1">
       <stop offset="0" stop-color="${colors.background}"/>
@@ -131,7 +129,6 @@ function profileOverviewSvg() {
       <tspan>BUILDING </tspan><tspan fill="${colors.cyan}" filter="url(#overview-cyan-glow)">INTELLIGENT</tspan><tspan> SYSTEMS.</tspan>
     </text>
     <text x="52" y="199" fill="${colors.body}" font-size="11" letter-spacing="0.6">BACKEND · DISTRIBUTED SYSTEMS · AI TOOLING · DEVELOPER PRODUCTIVITY</text>
-    <text x="52" y="244" fill="${colors.muted}" font-size="12" letter-spacing="2">GUANGZHOU, CN · UTC+08:00</text>
     <g fill="none" stroke="${colors.cyan}" stroke-opacity="0.34">
       <path d="M920 92H1030L1060 122H1140"/><path d="M965 160H1080L1110 132H1150"/><path d="M995 224H1085L1118 196H1150"/>
     </g>
@@ -302,7 +299,7 @@ Use this exact content:
 
 ```html
 <div align="center">
-  <img src="./assets/profile-overview.svg" alt="Benhao Qu — systems engineer in Guangzhou building backend, distributed, and AI tooling systems since 2014" width="100%" />
+  <img src="./assets/profile-overview.svg" alt="Benhao Qu — systems engineer building backend, distributed, and AI tooling systems since 2014" width="100%" />
 </div>
 <div align="center">
   <img src="./assets/section-github-signal.svg" alt="GitHub signal: rank, output, and languages" width="100%" />
@@ -326,7 +323,7 @@ Use this exact content:
   <img src="./assets/capabilities/infrastructure.svg" alt="Infrastructure: Kubernetes, Docker, Docker Compose, Cloudflare, and WireGuard" width="390" /><img src="./assets/capabilities/ai-tooling.svg" alt="AI tooling: LLM Integration, MCP, Ollama, MLX, OpenClaw, and Claude Code" width="390" />
 </p>
 <div align="center">
-  <img src="./assets/profile-footer.svg" alt="The best code solves the problem elegantly. Guangzhou, China, UTC plus eight; open to interesting collaborations." width="100%" />
+  <img src="./assets/profile-footer.svg" alt="The best code solves the problem elegantly. Open to interesting collaborations." width="100%" />
 </div>
 ```
 
@@ -403,7 +400,7 @@ Expected: both SVGs parse; the stats title includes a Rank and the language resp
 
 ```bash
 rtk node scripts/render-profile-preview.mjs
-rtk python3 -m http.server 61316 --directory /Users/benhao/Projects/QuBenhao
+rtk python3 -m http.server 61316 --directory .
 ```
 
 Keep the HTTP server session running only during browser verification.

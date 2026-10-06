@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="./assets/profile-overview.svg" alt="Benhao Qu — systems engineer in Guangzhou building backend, distributed, and AI tooling systems since 2014" width="100%" />
+  <img src="./assets/profile-overview.svg" alt="Benhao Qu — systems engineer building backend, distributed, and AI tooling systems since 2014" width="100%" />
 </div>
 <div align="center">
   <img src="./assets/section-github-signal.svg" alt="GitHub signal: rank, output, and languages" width="100%" />
@@ -28,5 +28,5 @@
   <img src="./assets/capabilities/infrastructure.svg" alt="Infrastructure: Kubernetes, Docker, Docker Compose, Cloudflare, and WireGuard" width="380" /><img src="./assets/capabilities/ai-tooling.svg" alt="AI tooling: LLM Integration, MCP, Ollama, MLX, OpenClaw, and Claude Code" width="380" />
 </p>
 <div align="center">
-  <img src="./assets/profile-footer.svg" alt="The best code solves the problem elegantly. Guangzhou, China, UTC plus eight; open to interesting collaborations." width="100%" />
+  <img src="./assets/profile-footer.svg" alt="The best code solves the problem elegantly. Open to interesting collaborations." width="100%" />
 </div>

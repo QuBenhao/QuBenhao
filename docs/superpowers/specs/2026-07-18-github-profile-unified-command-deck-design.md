@@ -12,7 +12,7 @@ Primary audience: engineers, maintainers, and potential collaborators evaluating
 - Remove native headings such as `01 / SYSTEM ID`, `02 / SELECTED SYSTEMS`, and `03 / SYSTEM MATRIX`.
 - Remove display headings such as `CORE // BACKEND RUNTIME`.
 - Remove the standalone `Operator profile` block because the hero already establishes identity.
-- Replace it with a compact four-cell identity rail.
+- Replace it with a compact two-cell identity rail.
 - Restore GitHub Rank, Stars, Commits, PRs, Issues, and Top Languages through the maintained GitHub Stats Extended service.
 - Remove the manually maintained programming-language list from the hero.
 - Keep each project's primary-language tag because it describes that specific project.
@@ -47,7 +47,7 @@ Replace the hand-maintained language list with domain positioning:
 
 > BACKEND · DISTRIBUTED SYSTEMS · AI TOOLING · DEVELOPER PRODUCTIVITY
 
-Keep the collaboration status and location. Use middle dots for compact telemetry; do not use slash-delimited display headings.
+Keep the collaboration status. Use middle dots for compact telemetry; do not use slash-delimited display headings.
 
 ### 2. Focus Signal
 
@@ -62,9 +62,7 @@ Replace `Operator profile`, the terminal identity block, and the `SINCE` label/v
 | Label | Value |
 |---|---|
 | Status | Active |
-| Base | Guangzhou, CN |
 | Experience | 2014 — Present |
-| Local time | UTC+08:00 |
 
 Render it as one repository-owned SVG. `Experience · 2014 — Present` replaces the awkward standalone `SINCE 2014` treatment.
 
@@ -152,7 +150,7 @@ Use a narrow repository-owned SVG footer that matches the focus strip:
 
 Supporting line:
 
-> GUANGZHOU, CN · UTC+08:00 · OPEN TO INTERESTING COLLABORATIONS
+> OPEN TO INTERESTING COLLABORATIONS
 
 ## Visual System
 

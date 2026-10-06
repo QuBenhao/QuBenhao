@@ -39,7 +39,7 @@ The overview uses one 1200 × 440 outer frame:
 
 - upper region: identity label, headline, domain positioning, collaboration signal, and decorative network
 - middle region: the existing three-state animated focus signal
-- lower region: Status, Base, Experience, and Local Time cells
+- lower region: Status and Experience cells
 
 Internal regions use thin divider lines. They do not use nested rounded frames. The first focus statement remains visible without animation, and `prefers-reduced-motion` disables decorative motion.
 

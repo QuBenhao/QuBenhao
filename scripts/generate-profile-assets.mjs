@@ -84,12 +84,10 @@ ${body}
 function profileOverviewSvg() {
   const cells = [
     ['STATUS', '● ACTIVE', colors.green],
-    ['BASE', 'GUANGZHOU, CN', colors.text],
     ['EXPERIENCE', '2014 — PRESENT', colors.text],
-    ['LOCAL TIME', 'UTC+08:00', colors.text],
   ];
   const identity = cells.map(([label, value, color], index) => {
-    const x = index * 300;
+    const x = index * 600;
     const divider = index === 0 ? '' : `    <path d="M${x} 358V426" stroke="${colors.border}"/>\n`;
     return `${divider}    <text x="${x + 32}" y="379" fill="${colors.muted}" font-size="10" font-weight="700" letter-spacing="2">${label}</text>
     <text x="${x + 32}" y="414" fill="${color}" font-size="17" font-weight="700">${value}</text>`;
@@ -97,7 +95,7 @@ function profileOverviewSvg() {
 
   return `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="440" viewBox="0 0 1200 440" role="img" aria-labelledby="title desc">
   <title id="title">Benhao Qu — systems engineer building intelligent systems</title>
-  <desc id="desc">Systems engineer in Guangzhou focused on backend runtime, distributed systems, AI tooling, and developer productivity. Active since 2014 in UTC plus eight.</desc>
+  <desc id="desc">Systems engineer focused on backend runtime, distributed systems, AI tooling, and developer productivity. Active since 2014.</desc>
   <defs>
     <linearGradient id="overview-background" x1="0" y1="0" x2="1" y2="1">
       <stop offset="0" stop-color="${colors.background}"/>
@@ -142,7 +140,6 @@ function profileOverviewSvg() {
       <tspan>BUILDING </tspan><tspan fill="${colors.cyan}" filter="url(#overview-cyan-glow)">INTELLIGENT</tspan><tspan> SYSTEMS.</tspan>
     </text>
     <text x="52" y="199" fill="${colors.body}" font-size="11" letter-spacing="0.6">BACKEND · DISTRIBUTED SYSTEMS · AI TOOLING · DEVELOPER PRODUCTIVITY</text>
-    <text x="52" y="244" fill="${colors.muted}" font-size="12" letter-spacing="2">GUANGZHOU, CN · UTC+08:00</text>
     <g fill="none" stroke="${colors.cyan}" stroke-opacity="0.34">
       <path d="M920 92H1030L1060 122H1140"/><path d="M965 160H1080L1110 132H1150"/><path d="M995 224H1085L1118 196H1150"/>
     </g>
@@ -160,12 +157,10 @@ ${identity}
 function identitySvg() {
   const cells = [
     ['STATUS', '● ACTIVE', colors.green],
-    ['BASE', 'GUANGZHOU, CN', colors.text],
     ['EXPERIENCE', '2014 — PRESENT', colors.text],
-    ['LOCAL TIME', 'UTC+08:00', colors.text],
   ];
   const body = cells.map(([label, value, color], index) => {
-    const x = index * 300;
+    const x = index * 600;
     const divider = index === 0 ? '' : `    <path d="M${x} 18V87" stroke="${colors.border}"/>\n`;
     return `${divider}    <text x="${x + 28}" y="37" fill="${colors.muted}" font-size="11" font-weight="700" letter-spacing="2">${label}</text>
     <text x="${x + 28}" y="70" fill="${color}" font-size="17" font-weight="700">${value}</text>`;
@@ -174,7 +169,7 @@ function identitySvg() {
     width: 1200,
     height: 105,
     title: 'Profile identity signal',
-    description: 'Active status, Guangzhou location, experience since 2014, and UTC plus eight local time.',
+    description: 'Active status and experience since 2014.',
     body,
     radius: 12,
   });
@@ -222,9 +217,9 @@ function footerSvg() {
     width: 1200,
     height: 104,
     title: 'Profile footer',
-    description: 'The best code solves the problem elegantly. Guangzhou, China, UTC plus eight, open to interesting collaborations.',
+    description: 'The best code solves the problem elegantly. Open to interesting collaborations.',
     body: `    <text x="600" y="43" fill="${colors.body}" font-size="17" text-anchor="middle">“The best code solves the problem elegantly.”</text>
-    <text x="600" y="76" fill="${colors.muted}" font-size="11" text-anchor="middle" letter-spacing="2">GUANGZHOU, CN · UTC+08:00 · OPEN TO INTERESTING COLLABORATIONS</text>`,
+    <text x="600" y="76" fill="${colors.muted}" font-size="11" text-anchor="middle" letter-spacing="2">OPEN TO INTERESTING COLLABORATIONS</text>`,
     radius: 12,
   });
 }

@@ -4,7 +4,7 @@
 
 **Goal:** Replace the current GitHub profile README with the approved Neural Command Deck V2 design and repository-owned animated SVG assets.
 
-**Architecture:** Keep essential identity, project, stack, and location content in GitHub-native Markdown/HTML. Use two self-contained SVG images only for the responsive hero and decorative focus animation; both retain readable static first frames and contain no scripts, external fonts, or remote dependencies.
+**Architecture:** Keep essential identity, project, and stack content in GitHub-native Markdown/HTML. Use two self-contained SVG images only for the responsive hero and decorative focus animation; both retain readable static first frames and contain no scripts, external fonts, or remote dependencies.
 
 **Tech Stack:** GitHub Flavored Markdown, GitHub-supported HTML tables, SVG 1.1, CSS keyframe animation, `xmllint`, macOS Quick Look rendering.
 
@@ -92,7 +92,6 @@ Create `assets/neural-command-deck.svg` as a `1200 × 300` responsive SVG with:
     <text x="1135" y="70" fill="#6cf2a8" font-size="13" text-anchor="end" letter-spacing="1.5"><tspan class="pulse">●</tspan> OPEN TO INTERESTING COLLABORATIONS</text>
     <text x="66" y="164" fill="#f0fbff" font-size="54" font-weight="800" letter-spacing="-3">BUILDING <tspan fill="#57dfff">INTELLIGENT</tspan> SYSTEMS.</text>
     <text x="66" y="218" fill="#9bb1bb" font-size="15" letter-spacing="1.2">GO · C++ · PYTHON · JAVA · KOTLIN · TYPESCRIPT // BACKEND · DISTRIBUTED SYSTEMS · AI TOOLING</text>
-    <text x="66" y="260" fill="#54717d" font-size="12" letter-spacing="2">GUANGZHOU, CN // UTC+08:00</text>
   </g>
 </svg>
 ```
@@ -169,14 +168,14 @@ Write these sections in this exact order:
 3. `SYSTEM ID` two-column table
 4. `SELECTED SYSTEMS` two-column table containing `LeetCode`, `distributed-system`, `xv6-lab`, `LeetCodeMCP`, `gopushdeer`, and `DancingLink`
 5. `SYSTEM MATRIX` two-column table containing Backend Runtime, Data & Messaging, Infrastructure, and AI Tooling
-6. centered quote and location footer
+6. centered quote footer
 
 Use this identity copy:
 
 ```text
 $ whoami
 Benhao Qu — Backend Engineer
-Guangzhou, China · Writing code since 2014
+Writing code since 2014
 
 $ focus --now
 Distributed Systems / AI Tooling / Developer Productivity

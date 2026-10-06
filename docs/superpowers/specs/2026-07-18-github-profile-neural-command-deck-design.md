@@ -51,7 +51,7 @@ Left column: terminal-style identity block:
 ```text
 $ whoami
 Benhao Qu — Backend Engineer
-Guangzhou, China · Writing code since 2014
+Writing code since 2014
 
 $ focus --now
 Distributed Systems / AI Tooling / Developer Productivity
@@ -99,7 +99,6 @@ Render groups as a two-column HTML table with compact headings and consistent ba
 End with:
 
 - `“The best code solves the problem elegantly.”`
-- `GUANGZHOU, CN // UTC+08:00`
 
 Remove the previous Learning Trail / Learning Signal section.
 
