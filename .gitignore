@@ -1,1 +1,4 @@
 .superpowers/
+
+# Local Claude permissions may contain credentials.
+**/.claude/settings.local.json
